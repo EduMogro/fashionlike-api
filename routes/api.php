@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\PostController;
+use App\Http\Controllers\Api\LikeController;
+use App\Http\Controllers\Api\DislikeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,8 +40,24 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 // POSTS
 
 Route::get('/posts', [PostController::class, 'index']);
-// Route::group(['middleware' => ['auth:sanctum']], function() {
+
+Route::group(['middleware' => ['auth:sanctum']], function() {
     Route::post('/posts', [PostController::class, 'store']);
     Route::put('/posts/{id}', [PostController::class, 'update']);
     Route::delete('/posts/{id}', [PostController::class, 'destroy']);
-// });
+});
+
+
+// LIKES / DISLIKES
+
+Route::get('/posts/{post}/likes', [LikeController::class, 'index']);
+Route::get('/posts/{post}/dislikes', [DislikeController::class, 'index']);
+
+Route::group( ['middleware' => ["auth:sanctum"]], function() {
+    // LIKES
+    Route::post('/posts/{post}/like', [LikeController::class, 'store']);
+    Route::get('/posts/{post}/like', [LikeController::class, 'show']);
+    // DISLIKES
+    Route::post('/posts/{post}/dislike', [DislikeController::class, 'store']);
+    Route::get('/posts/{post}/dislike', [DislikeController::class, 'show']);
+});
