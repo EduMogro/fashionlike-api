@@ -50,7 +50,8 @@ Route::group(['middleware' => ['auth:sanctum']], function() {
 
 // LIKES / DISLIKES
 
-Route::get('/posts/{post}/likes', [LikeController::class, 'index']);
+// Route::get('/posts/{post}/likes', [LikeController::class, 'index']);
+Route::get('/posts/{id}/likes', [PostController::class, 'all_likes']);
 Route::get('/posts/{post}/dislikes', [DislikeController::class, 'index']);
 
 Route::group( ['middleware' => ["auth:sanctum"]], function() {

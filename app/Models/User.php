@@ -24,6 +24,20 @@ class User extends Authenticatable
         'password',
     ];
 
+
+    public function posts() {
+        return $this->hasMany('App\Models\Post');
+    }
+
+    public function likes() {
+        return $this->hasMany('App\Models\Like');
+    }
+
+    public function dislikes() {
+        return $this->hasMany('App\Models\Dislike');
+    }
+
+
     public $timestamps = false;
 
     /**

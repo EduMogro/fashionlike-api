@@ -99,6 +99,14 @@ class PostController extends Controller
         return $post;
     }
 
+    public function all_likes(Request $request) 
+    {
+        $post = Post::findOrFail($request->id);
+        $likes = $post->allLikes($request->id);
+
+        return $likes;
+    }
+
     
     public function usuario() {
         return response()->json([

@@ -13,4 +13,12 @@ class Like extends Model
         "user_id",
         "post_id"
     ];
+
+    public function user() {
+        return $this->belongsTo('App\Models\User');
+    }
+
+    public function post() {
+        return $this->belongsTo('App\Models\Post');
+    }
 }
