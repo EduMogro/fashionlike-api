@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Models\Post;
+use App\Http\Resources\PostResource;
 
 class PostController extends Controller
 {
@@ -18,9 +19,9 @@ class PostController extends Controller
     public function index()
     {
         // $posts = Post::all();
-        $posts = Post::latest()->get();
+        // $posts = Post::latest()->get();
 
-        return $posts;
+        return response()->json(PostResource::collection(Post::with(['likes','dislikes'])->latest()->get()), 202);
     }
 
     /**
